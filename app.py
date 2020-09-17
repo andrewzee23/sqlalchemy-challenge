@@ -23,7 +23,6 @@ app = Flask(__name__)
 # Flask Routes
 @app.route("/")
 def welcome():
-    """List all available api routes."""
     return (
         f"Available Routes:<br/>"
         f"/api/v1.0/precipitation<br/>"
@@ -34,7 +33,7 @@ def welcome():
     )
 
 @app.route("/api/v1.0/precipitation")
-def precipitation():
+def precip():
     # Create our session (link) from Python to the DB
     session = Session(engine)
 
@@ -98,15 +97,7 @@ def tobs():
     return jsonify(tobs_date_list)
 
 @app.route("/api/v1.0/<start>")
-def temp_range_start(start):
-    """TMIN, TAVG, and TMAX per date starting from a starting date.
-    
-    Args:
-        start (string): A date string in the format %Y-%m-%d
-        
-    Returns:
-        TMIN, TAVE, and TMAX
-    """
+def start_range(start):
 
     # Create our session (link) from Python to the DB
     session = Session(engine)
@@ -133,16 +124,7 @@ def temp_range_start(start):
     return jsonify(return_list)
 
 @app.route("/api/v1.0/<start>/<end>")
-def temp_range_start_end(start,end):
-    """TMIN, TAVG, and TMAX per date for a date range.
-    
-    Args:
-        start (string): A date string in the format %Y-%m-%d
-        end (string): A date string in the format %Y-%m-%d
-        
-    Returns:
-        TMIN, TAVE, and TMAX
-    """
+def start_end(start,end):
 
     # Create our session (link) from Python to the DB
     session = Session(engine)
